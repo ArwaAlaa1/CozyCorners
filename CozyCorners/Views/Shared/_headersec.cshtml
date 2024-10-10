@@ -1,303 +1,309 @@
 ﻿@using CozyCorners.Core.Models.Identity
+@using CozyCorners.Core.Repositories.Contract
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
+@inject IProductRepository _productRepository
 
-<header id="home" class="welcome-hero">
+@{
+    var products = await _productRepository.GetTopProducts(3); // Fetch the top 3 products directly
+}
 
-	<div id="header-carousel" class="carousel slide carousel-fade" data-ride="carousel">
-		<!--/.carousel-indicator -->
-		<ol class="carousel-indicators">
-			<li data-target="#header-carousel" data-slide-to="0" class="active"><span class="small-circle"></span></li>
-			<li data-target="#header-carousel" data-slide-to="1"><span class="small-circle"></span></li>
-			<li data-target="#header-carousel" data-slide-to="2"><span class="small-circle"></span></li>
-		</ol><!-- /ol-->
-		<!--/.carousel-indicator -->
-		<!--/.carousel-inner -->
-		<div class="carousel-inner" role="listbox">
-			<!-- .item -->
-			<div class="item active">
-				<div class="single-slide-item slide1">
-					<div class="container">
-						<div class="welcome-hero-content">
-							<div class="row">
-								<div class="col-sm-7">
-									<div class="single-welcome-hero">
-										<div class="welcome-hero-txt">
-											<h4>great design collection</h4>
-											<h2>cloth covered accent chair</h2>
-											<p>
-												Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiuiana smod tempor  ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.
-											</p>
-											<div class="packages-price">
-												<p>
-													$ 399.00
-													<del>$ 499.00</del>
-												</p>
-											</div>
-											<button class="btn-cart welcome-add-cart" onclick="window.location.href='#'">
-												<span class="lnr lnr-plus-circle"></span>
-												add <span>to</span> cart
-											</button>
-											<button class="btn-cart welcome-add-cart welcome-more-info" onclick="window.location.href='#'">
-												more info
-											</button>
-										</div><!--/.welcome-hero-txt-->
-									</div><!--/.single-welcome-hero-->
-								</div><!--/.col-->
-								<div class="col-sm-5">
-									<div class="single-welcome-hero">
-										<div class="welcome-hero-img">
-											<img src="~/ImagesSite/images/slider/slider1.png" alt="slider image">
-										</div><!--/.welcome-hero-txt-->
-									</div><!--/.single-welcome-hero-->
-								</div><!--/.col-->
-							</div><!--/.row-->
-						</div><!--/.welcome-hero-content-->
-					</div><!-- /.container-->
-				</div><!-- /.single-slide-item-->
 
-			</div><!-- /.item .active-->
-
-			<div class="item">
-				<div class="single-slide-item slide2">
-					<div class="container">
-						<div class="welcome-hero-content">
-							<div class="row">
-								<div class="col-sm-7">
-									<div class="single-welcome-hero">
-										<div class="welcome-hero-txt">
-											<h4>great design collection</h4>
-											<h2>mapple wood accent chair</h2>
-											<p>
-												Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiuiana smod tempor  ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.
-											</p>
-											<div class="packages-price">
-												<p>
-													$ 199.00
-													<del>$ 299.00</del>
-												</p>
-											</div>
-											<button class="btn-cart welcome-add-cart" onclick="window.location.href='#'">
-												<span class="lnr lnr-plus-circle"></span>
-												add <span>to</span> cart
-											</button>
-											<button class="btn-cart welcome-add-cart welcome-more-info" onclick="window.location.href='#'">
-												more info
-											</button>
-										</div><!--/.welcome-hero-txt-->
-									</div><!--/.single-welcome-hero-->
-								</div><!--/.col-->
-								<div class="col-sm-5">
-									<div class="single-welcome-hero">
-										<div class="welcome-hero-img">
-											<img src="~/ImagesSite/images/slider/slider2.png" alt="slider image">
-										</div><!--/.welcome-hero-txt-->
-									</div><!--/.single-welcome-hero-->
-								</div><!--/.col-->
-							</div><!--/.row-->
-						</div><!--/.welcome-hero-content-->
-					</div><!-- /.container-->
-				</div><!-- /.single-slide-item-->
-
-			</div><!-- /.item .active-->
-
-			<div class="item">
-				<div class="single-slide-item slide3">
-					<div class="container">
-						<div class="welcome-hero-content">
-							<div class="row">
-								<div class="col-sm-7">
-									<div class="single-welcome-hero">
-										<div class="welcome-hero-txt">
-											<h4>great design collection</h4>
-											<h2>valvet accent arm chair</h2>
-											<p>
-												Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiuiana smod tempor  ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.
-											</p>
-											<div class="packages-price">
-												<p>
-													$ 299.00
-													<del>$ 399.00</del>
-												</p>
-											</div>
-											<button class="btn-cart welcome-add-cart" onclick="window.location.href='#'">
-												<span class="lnr lnr-plus-circle"></span>
-												add <span>to</span> cart
-											</button>
-											<button class="btn-cart welcome-add-cart welcome-more-info" onclick="window.location.href='#'">
-												more info
-											</button>
-										</div><!--/.welcome-hero-txt-->
-									</div><!--/.single-welcome-hero-->
-								</div><!--/.col-->
-								<div class="col-sm-5">
-									<div class="single-welcome-hero">
-										<div class="welcome-hero-img">
-											<img src="~/ImagesSite/images/slider/slider3.png" alt="slider image">
-										</div><!--/.welcome-hero-txt-->
-									</div><!--/.single-welcome-hero-->
-								</div><!--/.col-->
-							</div><!--/.row-->
-						</div><!--/.welcome-hero-content-->
-					</div><!-- /.container-->
-				</div><!-- /.single-slide-item-->
-
-			</div><!-- /.item .active-->
-		</div><!-- /.carousel-inner-->
-
-	</div><!--/#header-carousel-->
-
-	<div class="top-area">
-		<div class="header-area">
-			<!-- Start Navigation -->
-			<nav class="navbar navbar-default bootsnav  navbar-sticky navbar-scrollspy" data-minus-value-desktop="70" data-minus-value-mobile="55" data-speed="1000">
-
-				<!-- Start Top Search -->
-				<div class="top-search">
-					<div class="container">
-						<div class="input-group">
-							<span class="input-group-addon"><i class="fa fa-search"></i></span>
-							<input type="text" class="form-control" placeholder="Search">
-							<span class="input-group-addon close-search"><i class="fa fa-times"></i></span>
-						</div>
-					</div>
+	<nav class="fh5co-nav" role="navigation">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3 col-xs-2">
+					<div id="fh5co-logo"><a asp-action="Index" asp-controller="Home">CozyCorner</a></div>
 				</div>
-				<!-- End Top Search -->
+				<div class="col-md-6 col-xs-6 text-center menu-1">
+					<ul>
+						<li class="has-dropdown">
+							<a href="product.html">Shop</a>
+							<ul class="dropdown">
+								<li><a href="single.html">Single Shop</a></li>
+							</ul>
+						</li>
+						<li><a href="about.html">About</a></li>
+						<li class="has-dropdown">
+							<a href="services.html">Services</a>
+							<ul class="dropdown">
+								<li><a href="#">Web Design</a></li>
+								<li><a href="#">eCommerce</a></li>
+								<li><a href="#">Branding</a></li>
+								<li><a href="#">API</a></li>
+							</ul>
+						</li>
+						<li><a href="contact.html">Contact</a></li>
+					</ul>
+				</div>
+				<div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
+					<ul>
+						<li class="search">
+							<div class="input-group">
+								<input type="text" placeholder="Search..">
+								<span class="input-group-btn">
+									<button class="btn btn-primary" type="button"><i class="icon-search"></i></button>
+								</span>
+							</div>
+						</li>
+						<li class="shopping-cart"><a href="#" class="cart"><span><small>0</small><i class="icon-shopping-cart"></i></span></a></li>
 
-				<div class="container">
-					<!-- Start Atribute Navigation -->
-					<div class="attr-nav">
-						<ul>
-							<li class="search">
-								<a href="#"><span class="lnr lnr-magnifier"></span></a>
-							</li><!--/.search-->
-							<li class="nav-setting">
-								<a href="#"><span class="lnr lnr-cog"></span></a>
-							</li><!--/.search-->
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-									<i class="fa-solid fa-cart-shopping"></i>
-									<span class="badge badge-bg-1">2</span>
-								</a>
-								<ul class="dropdown-menu cart-list s-cate">
-									<li class="single-cart-list">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa-solid fa-user"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            @if (SignInManager.IsSignedIn(User) && !User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a id="manage" class="nav-link">Hello @UserManager.GetUserName(User)!</a>
+                                </li>
+                                <li>
+                                    <form asp-action="Logout" asp-controller="Account" method="post">
+                                        <button type="submit" class="btn btn-link">LogOut</button>
+                                    </form>
+                                </li>
+                            }
+                            else if (User.IsInRole("Admin") && SignInManager.IsSignedIn(User))
+                            {
+                                <li class="nav-item">
+                                    <a id="manage" class="nav-link">Hello @UserManager.GetUserName(User)!</a>
+                                </li>
+                                <li>
+                                    <form asp-action="Index" asp-controller="Admin" method="get">
+                                        <button type="submit" class="btn btn-link">Dashboard</button>
+                                    </form>
+                                </li>
+                                <li>
+                                    <form asp-action="Logout" asp-controller="Account" method="post">
+                                        <button type="submit" class="btn btn-link">LogOut</button>
+                                    </form>
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <form asp-action="Register" asp-controller="Account" method="get">
+                                        <button type="submit" class="btn btn-link">Register</button>
+                                    </form>
+                                </li>
+                                <li>
+                                    <form asp-action="Signin" asp-controller="Account" method="get">
+                                        <button type="submit" class="btn btn-link">Login</button>
+                                    </form>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                    </ul>
+				</div>
+			</div>
 
-										
-										<a href="#" class="photo"><img src="~/ImagesSite/images/collection/arrivals1.png" class="cart-thumb" alt="image" /></a>
-										<div class="cart-list-txt">
-											<h6><a href="#">arm <br> chair</a></h6>
-											<p>1 x - <span class="price">$180.00</span></p>
-										</div><!--/.cart-list-txt-->
-										<div class="cart-close">
-											<span class="lnr lnr-cross"></span>
-										</div><!--/.cart-close-->
-									</li><!--/.single-cart-list -->
-									<li class="single-cart-list">
-										<a href="#" class="photo"><img src="~/ImagesSite/images/collection/arrivals2.png" class="cart-thumb" alt="image" /></a>
-										<div class="cart-list-txt">
-											<h6><a href="#">single <br> armchair</a></h6>
-											<p>1 x - <span class="price">$180.00</span></p>
-										</div><!--/.cart-list-txt-->
-										<div class="cart-close">
-											<span class="lnr lnr-cross"></span>
-										</div><!--/.cart-close-->
-									</li><!--/.single-cart-list -->
-									<li class="single-cart-list">
-										<a href="#" class="photo"><img src="~/ImagesSite/images/collection/arrivals3.png" class="cart-thumb" alt="image" /></a>
-										<div class="cart-list-txt">
-											<h6><a href="#">wooden arn <br> chair</a></h6>
-											<p>1 x - <span class="price">$180.00</span></p>
-										</div><!--/.cart-list-txt-->
-										<div class="cart-close">
-											<span class="lnr lnr-cross"></span>
-										</div><!--/.cart-close-->
-									</li><!--/.single-cart-list -->
-									<li class="total">
-										<span>Total: $0.00</span>
-										<button class="btn-cart pull-right" onclick="window.location.href='#'">view cart</button>
-									</li>
-								</ul>
-							</li><!--/.dropdown-->
-						</ul>
-					</div><!--/.attr-nav-->
-					<!-- End Atribute Navigation -->
-					<!-- Start Header Navigation -->
-					<div class="navbar-header">
-						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
-							<i class="fa fa-bars"></i>
-						</button>
-						<a class="navbar-brand" href="index.html">sine<span>mkt</span>.</a>
+		</div>
+	</nav>
 
-					</div><!--/.navbar-header-->
-					<!-- End Header Navigation -->
-					<!-- Collect the nav links, forms, and other content for toggling -->
-					<div class="collapse navbar-collapse menu-ui-design" id="navbar-menu">
-						<ul class="nav navbar-nav navbar-center" data-in="fadeInDown" data-out="fadeOutUp">
-							<li class=" scroll active"><a href="#home">home</a></li>
-							<li class="scroll"><a href="#new-arrivals">new arrival</a></li>
-							<li class="scroll"><a href="#feature">features</a></li>
-							<li class="scroll"><a href="#blog">blog</a></li>
-							<li class="scroll"><a href="#newsletter">contact</a></li>
+	<aside id="fh5co-hero" class="js-fullheight">
+		<div class="flexslider js-fullheight">
+			<ul class="slides">
+            @for (int i = 0; i < products.Count; i++)
+            {
+                var product = products[i];
+                <li style="background-image: url(@product.PhotoPath);">
+                    <div class="overlay-gradient"></div>
+                    <div class="container">
+                        <div class="col-md-6 col-md-offset-3 col-md-pull-3 js-fullheight slider-text">
+                            <div class="slider-text-inner">
+                                <div class="desc">
+                                    <span class="price">$@product.Price</span>
+                                    <h2>@product.Name</h2>
+                                    <p>@product.Description</p>
+                                    <p><a href="single.html" class="btn btn-primary btn-outline btn-lg">Purchase Now</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            }
 
-							@if (SignInManager.IsSignedIn(User) && !User.IsInRole("Admin"))
-							{
-								<li class="nav-item">
-									<a id="manage" class="nav-link text-dark">Hello @UserManager.GetUserName(User)!</a>
-								</li>
-								<form asp-action="Logout" asp-controller="Account" method="post">
-									<input type="hidden" name="__RequestVerificationToken" />
-									<button type="submit" class="btn btn-link">
-										LogOut</button>
-								</form>
-								
-							}
-							else if (User.IsInRole("Admin") && SignInManager.IsSignedIn(User))
-							{
-								<li class="nav-item">
-									<a id="manage" class="nav-link text-dark">Hello @UserManager.GetUserName(User)!</a>
-								</li>
-								<form asp-action="DashBoard" asp-controller="Account" method="get">
-									@Html.AntiForgeryToken()  <!-- This generates the CSRF token -->
-									<button type="submit" class="btn btn-link">
-										DashBoard
-									</button>
-								</form>
-								<form asp-action="Logout" asp-controller="Account" method="post">
-									<input type="hidden" name="__RequestVerificationToken" />
-									<button type="submit" class="btn btn-link">
-										LogOut
-									</button>
-								</form>
-
-
-							}
-							else
-							{
-								<form asp-action="AddUser" asp-controller="User" method="get">
-									<input type="hidden" name="__RequestVerificationToken" />
-									<button type="submit" class="btn btn-link">
-										Register
-									</button>
-								</form>
-								<form asp-action="Signin" asp-controller="Account" method="get">
-									@Html.AntiForgeryToken()  <!-- This generates the CSRF token -->
-									<button type="submit" class="btn btn-link">
-										Login
-									</button>
-								</form>
-
-							}
+		
+				
+			</ul>
+		</div>
+	</aside>
 
 
-						</ul><!--/.nav -->
-					</div><!-- /.navbar-collapse -->
-					
-				</div><!--/.container-->
-			</nav><!--/nav-->
-			<!-- End Navigation -->
-		</div><!--/.header-area-->
-		<div class="clearfix"></div>
 
-	</div><!-- /.top-area-->
-	<!-- top-area End -->
+
+@* <header id="home" class="welcome-hero">
+
+    <div id="header-carousel" class="carousel slide carousel-fade" data-ride="carousel">
+        <!--/.carousel-indicator -->
+        <ol class="carousel-indicators">
+            @for (int i = 0; i < products.Count; i++)
+            {
+                <li data-target="#header-carousel" data-slide-to="@i" class="@(i == 0 ? "active" : "")"><span class="small-circle"></span></li>
+            }
+        </ol><!-- /ol-->
+        <!--/.carousel-indicator -->
+        <!--/.carousel-inner -->
+        <div class="carousel-inner" role="listbox">
+            @for (int i = 0; i < products.Count; i++)
+            {
+                var product = products[i];
+                <div class="item @(i == 0 ? "active" : "")">
+                    <div class="single-slide-item slide1">
+                        <div class="container">
+                            <div class="welcome-hero-content">
+                                <div class="row">
+                                    <div class="col-sm-7">
+                                        <div class="single-welcome-hero">
+                                            <div class="welcome-hero-txt">
+                                                <h4>Great Design Collection</h4>
+                                                <h2>@product.Name</h2>
+                                                <p>
+                                                    @product.Description
+                                                </p>
+                                                <div class="packages-price">
+                                                    <p>
+                                                        $@product.Price
+                                                        @if (product.Price > product.Price)
+                                                        {
+                                                            <del>$@product.Price</del>
+                                                        }
+                                                    </p>
+                                                </div>
+                                                <button class="btn-cart welcome-add-cart" onclick="window.location.href='#'">
+                                                    <span class="lnr lnr-plus-circle"></span>
+                                                    Add <span>to</span> cart
+                                                </button>
+                                                <button class="btn-cart welcome-add-cart welcome-more-info" onclick="window.location.href='#'">
+                                                    More info
+                                                </button>
+                                            </div><!--/.welcome-hero-txt-->
+                                        </div><!--/.single-welcome-hero-->
+                                    </div><!--/.col-->
+                                    <div class="col-sm-5">
+                                        <div class="single-welcome-hero">
+                                            <div class="welcome-hero-img">
+                                                <img src="@product.PhotoPath" alt="@product.Name" />
+                                            </div><!--/.welcome-hero-txt-->
+                                        </div><!--/.single-welcome-hero-->
+                                    </div><!--/.col-->
+                                </div><!--/.row-->
+                            </div><!--/.welcome-hero-content-->
+                        </div><!-- /.container-->
+                    </div><!-- /.single-slide-item-->
+                </div><!-- /.item -->
+            }
+        </div><!-- /.carousel-inner-->
+    </div><!--/#header-carousel-->
+
+    <div class="top-area">
+        <div class="header-area">
+            <!-- Start Navigation -->
+            <nav class="navbar navbar-default bootsnav navbar-sticky navbar-scrollspy" data-minus-value-desktop="70" data-minus-value-mobile="55" data-speed="1000">
+
+                <div class="container">
+                    <!-- Start Attribute Navigation -->
+                    <div class="attr-nav">
+                        <ul>
+                            <!-- Search Icon -->
+                            <li class="search">
+                                <a href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
+                            </li>
+
+                            <!-- Settings Icon -->
+                            <li class="nav-setting">
+                                <a href="#"><span class="lnr lnr-cog"></span></a>
+                            </li>
+
+                            <!-- Cart Icon -->
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa-solid fa-cart-shopping"></i>
+                                    <span class="badge badge-bg-1">2</span>
+                                </a>
+                                <ul class="dropdown-menu cart-list s-cate">
+                                    <!-- Cart items omitted for brevity -->
+                                </ul>
+                            </li>
+                        </ul>
+                    </div><!--/.attr-nav-->
+                    <!-- End Attribute Navigation -->
+                    <!-- Start Header Navigation -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <a class="navbar-brand" href="index.html">Cozy<span>Corner</span>.</a>
+                    </div><!--/.navbar-header-->
+                    <!-- End Header Navigation -->
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse menu-ui-design" id="navbar-menu">
+                        <ul class="nav navbar-nav navbar-center" data-in="fadeInDown" data-out="fadeOutUp">
+                            <li class="scroll active"><a href="#home">home</a></li>
+                            <li class="scroll"><a href="#new-arrivals">new arrival</a></li>
+                            <li class="scroll"><a href="#feature">features</a></li>
+                            <li class="scroll"><a href="#blog">blog</a></li>
+                            <li class="scroll"><a href="#newsletter">contact</a></li>
+
+                            <!-- User Menu Dropdown -->
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa-solid fa-user"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    @if (SignInManager.IsSignedIn(User) && !User.IsInRole("Admin"))
+                                    {
+                                        <li class="nav-item">
+                                            <a id="manage" class="nav-link">Hello @UserManager.GetUserName(User)!</a>
+                                        </li>
+                                        <li>
+                                            <form asp-action="Logout" asp-controller="Account" method="post">
+                                                <button type="submit" class="btn btn-link">LogOut</button>
+                                            </form>
+                                        </li>
+                                    }
+                                    else if (User.IsInRole("Admin") && SignInManager.IsSignedIn(User))
+                                    {
+                                        <li class="nav-item">
+                                            <a id="manage" class="nav-link">Hello @UserManager.GetUserName(User)!</a>
+                                        </li>
+                                        <li>
+                                            <form asp-action="Index" asp-controller="Admin" method="get">
+                                                <button type="submit" class="btn btn-link">Dashboard</button>
+                                            </form>
+                                        </li>
+                                        <li>
+                                            <form asp-action="Logout" asp-controller="Account" method="post">
+                                                <button type="submit" class="btn btn-link">LogOut</button>
+                                            </form>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li>
+                                            <form asp-action="Register" asp-controller="Account" method="get">
+                                                <button type="submit" class="btn btn-link">Register</button>
+                                            </form>
+                                        </li>
+                                        <li>
+                                            <form asp-action="Signin" asp-controller="Account" method="get">
+                                                <button type="submit" class="btn btn-link">Login</button>
+                                            </form>
+                                        </li>
+                                    }
+                                </ul>
+                            </li><!--/.dropdown-->
+                        </ul><!--/.nav -->
+                    </div><!-- /.navbar-collapse -->
+                </div><!--/.container-->
+            </nav><!--/nav-->
+            <!-- End Navigation -->
+        </div><!--/.header-area-->
+        <div class="clearfix"></div>
+
+    </div><!-- /.top-area-->
+    <!-- top-area End -->
 </header>
+ *@

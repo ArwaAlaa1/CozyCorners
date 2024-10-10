@@ -1,19 +1,25 @@
 ﻿using AutoMapper;
 using CozyCorners.Core.Models.Identity;
+using CozyCorners.Extentions;
 using CozyCorners.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
+using System.IO;
 
 namespace CozyCorners.Controllers
 {
-    public class UserController : Controller
+	[Authorize(Roles = "Admin")]
+	public class UserController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IMapper _mapper;
         private readonly IWebHostEnvironment _environment;
-
+       
         public UserController(UserManager<AppUser> userManager,
             RoleManager<IdentityRole> roleManager, IMapper mapper, IWebHostEnvironment environment)
         {
@@ -22,7 +28,7 @@ namespace CozyCorners.Controllers
             _roleManager = roleManager;
             _mapper = mapper;
             _environment = environment;
-
+           
         }
         public async Task<IActionResult> Index()
         {
@@ -51,31 +57,66 @@ namespace CozyCorners.Controllers
         public async Task<IActionResult> AddUser()
         {
 
-            UserFormViewModel user = new UserFormViewModel();
-            var roles = await _roleManager.Roles.ToListAsync();
-            var mappedRoles =  _mapper.Map<List<IdentityRole>, List<RoleUserViewModel>>(roles);
-            user.Roles = mappedRoles;
+            UserFormViewModel user = new UserFormViewModel()
+            {
+                Roles = await _roleManager.GetAllRoles()
+            }; 
+            
             return View(user);
         }
 
         [HttpPost]
-
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddUser(UserFormViewModel addUser)
         {
+            var user = new AppUser();
+            if (!ModelState.IsValid)
+            {
+                addUser.Roles = await _roleManager.GetAllRoles();
+                return View(addUser);
+            }
             try
             {
 
-
-                // Create a new AppUser object
-                var user = new AppUser()
+                if (addUser.PhotoFile is not null)
                 {
-                    UserName = addUser.UserName,
-                    DisplayName = addUser.DisplayName,
-                    Email = addUser.Email,
-                    PhoneNumber = addUser.PhoneNumber,
-                    Photo = addUser.Photo,
+                    //var PhotoName = $"{Guid.NewGuid()}{Path.GetExtension(addUser.PhotoFile.FileName)}";
+                    //string uploadDir = Path.Combine(_PhotoRootePath, "assets", "images", "Users");
+                    //if (!Directory.Exists(uploadDir))
+                    //{
+                    //    Directory.CreateDirectory(uploadDir);
+                    //}
+                    //var pathPhoto = Path.Combine(uploadDir, PhotoName);
+                    //using (var fileStream = new FileStream(pathPhoto, FileMode.Create))
+                    //{
+                    //    await addUser.PhotoFile.CopyToAsync(fileStream);
+                    //}
+                    var PhotoName=await _userManager.GetPhotoPath(addUser, _environment);
+                    // Create a new AppUser object
+                    user = new AppUser()
+                    {
+                        UserName = addUser.UserName,
+                        DisplayName = addUser.DisplayName,
+                        Email = addUser.Email,
+                        PhoneNumber = addUser.PhoneNumber,
+                        Photo = PhotoName,
 
-                };
+                    };
+
+                }
+                else
+                {
+                    user = new AppUser()
+                    {
+                        UserName = addUser.UserName,
+                        DisplayName = addUser.DisplayName,
+                        Email = addUser.Email,
+                        PhoneNumber = addUser.PhoneNumber,
+
+
+                    };
+                }
+           
 
                 // Create the user in the system
                 var createUserResult = await _userManager.CreateAsync(user, addUser.Password);
@@ -97,11 +138,11 @@ namespace CozyCorners.Controllers
                     }
                     else
                     {
-                        ModelState.AddModelError(string.Empty, "Role not found.");
-                        return View(addUser);
+                        return RedirectToAction(nameof(Index));
+                       
                     }
 
-                    return RedirectToAction("Index");
+                   
                 }
                 else
                 {
@@ -154,7 +195,7 @@ namespace CozyCorners.Controllers
 
                 var user = new AppUser()
                 {
-                    Id = editUser.Id,
+                   
 
                     UserName = editUser.UserName,
 

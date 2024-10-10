@@ -8,6 +8,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using CozyCorners.Extentions;
+using CozyCorners.Core.Repositories.Contract;
+using CozyCorners.Repository.Repositories;
 
 namespace CozyCorners
 {
@@ -19,6 +23,10 @@ namespace CozyCorners
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            //    (options =>
+            //{
+            //    options.Filters.Add(new AuthorizeFilter());
+            //});
 
             builder.Services.AddDbContext<CozyDbContext>(options =>
             {
@@ -35,13 +43,17 @@ namespace CozyCorners
            
             builder.Services.AddAutoMapper(typeof(MappingProfiles));
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-        
+            builder.Services.AddScoped(typeof(IProductRepository), typeof(ProductRepository));
+
+            builder.Services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
+            builder.Services.AddScoped<CategoryServices>();
+            builder.Services.AddScoped<ProductServices>();
             builder.Services.AddAuthentication("Cookies")
        .AddCookie(options =>
        {
            options.LoginPath = "/Account/Signin"; // Redirect to this path if not authenticated
                                                   // options.AccessDeniedPath = "/Account/AccessDenied"; // Redirect here if the user is authenticated but not authorized
-           options.ExpireTimeSpan = TimeSpan.FromMinutes(1);
+           options.ExpireTimeSpan = TimeSpan.FromMinutes(15);
 
        });
             builder.Services.ConfigureApplicationCookie(conf =>
@@ -67,8 +79,9 @@ namespace CozyCorners
 
                 await dbcontext.Database.MigrateAsync();
 
-                //var usermanager = services.GetRequiredService<UserManager<AppUser>>();
-                //await AppSeed.UserSeedAsync(usermanager);
+                var usermanager = services.GetRequiredService<UserManager<AppUser>>();
+				var rolemanager = services.GetRequiredService<RoleManager<IdentityRole>>();
+				await AppSeeding.SeedAsync(usermanager,rolemanager);
 
             }
             catch (Exception ex)
@@ -101,7 +114,7 @@ namespace CozyCorners
 
 			app.MapControllerRoute(
 			  name: "admin",
-			  pattern: "Admin/{controller=Home}/{action=IndexAdmin}/{id?}");
+			  pattern: "Admin/{controller=Admin}/{action=Index}/{id?}");
 
 			app.Run();
         }

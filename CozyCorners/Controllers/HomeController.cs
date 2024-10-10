@@ -1,4 +1,8 @@
+using CozyCorners.Core;
+using CozyCorners.Core.Models;
+using CozyCorners.Core.Repositories.Contract;
 using CozyCorners.Models;
+using CozyCorners.ViewModels;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,20 +14,33 @@ namespace CozyCorners.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+		private readonly IUnitOfWork _unitOfWork;
+		private readonly IProductRepository _product;
 
-        public HomeController(ILogger<HomeController> logger)
+		public HomeController(ILogger<HomeController> logger,IUnitOfWork unitOfWork,IProductRepository product)
         {
             _logger = logger;
-        }
-
-        public IActionResult Index()
-        {
-            return View();
-        }
-		public IActionResult IndexAdmin()
-		{
-			return View();
+			_unitOfWork = unitOfWork;
+			_product = product;
 		}
+
+        public async Task<IActionResult> Index()
+        {
+			var categories = await _unitOfWork.Repository<Category>().GetAllAsync();
+			var topCategories = categories.Take(3).ToList();
+			var products = await _product.GetAllAsync();
+
+			// Create ViewModel and populate data
+			var model = new HomeViewModel
+			{
+				Categories = topCategories,
+				Products = products
+			};
+
+			return View(model);
+
+		}
+	
 		public IActionResult Privacy()
         {
             return View();

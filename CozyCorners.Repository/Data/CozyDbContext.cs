@@ -1,11 +1,13 @@
 ﻿using CozyCorners.Core.Models;
 using CozyCorners.Core.Models.Identity;
+using CozyCorners.Core.Models.Order;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,26 +22,31 @@ namespace CozyCorners.Repository.Data
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<Category>()
-          .HasMany(c => c.SubCategories)
-          .WithOne(c => c.ParentCategory)
-          .HasForeignKey(c => c.ParentCategoryId);
+          //  builder.Entity<Category>()
+          //.HasMany(c => c.SubCategories)
+          //.WithOne(c => c.ParentCategory)
+          //.HasForeignKey(c => c.ParentCategoryId);
 
             builder.Entity<Favorite>()
                 .HasKey(e => new { e.ProductId, e.UserId });
            
             base.OnModelCreating(builder);
-        }
-        
-       
-        public DbSet<Product> Products { get; set; }
+
+            builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+
+		}
+
+
+		public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<AppUser> AppUsers { get; set; }
-        public DbSet<ProductPhoto> ProductPhotos { get; set; }
-       // public DbSet<Favorite> Favorites { get; set; }
+        //public DbSet<ProductPhoto> ProductPhotos { get; set; }
+		public DbSet<Order> Orders { get; set; }
+		public DbSet<OrderItem> OrderItems { get; set; }
+		public DbSet<DeliveryMethod> DeliveryMethods { get; set; }
+        public DbSet<Favorite> Favorites { get; set; }
         public DbSet<Review> Reviews { get; set; }
 
-        //public DbSet<Order> orders { get; set; }
-        //public DbSet<OrderItems> orderItems { get; set; }
     }
 }

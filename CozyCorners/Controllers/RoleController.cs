@@ -9,8 +9,9 @@ using System.Security.Claims;
 
 namespace CozyCorners.Controllers
 {
-    //[Authorize(AuthenticationSchemes = "Cookies")]
-    public class RoleController : Controller
+	//[Authorize(AuthenticationSchemes = "Cookies")]
+	[Authorize(Roles = "Admin")]
+	public class RoleController : Controller
 	{
 		private readonly RoleManager<IdentityRole> roleManager;
   

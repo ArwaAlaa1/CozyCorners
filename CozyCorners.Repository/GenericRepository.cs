@@ -13,7 +13,7 @@ namespace CozyCorners.Repository
     public class GenericRepository<T>:IGenericRepository<T> where T : BaseEntity
     {
        
-        private readonly CozyDbContext _dbContext;
+        private protected  readonly CozyDbContext _dbContext;
 
         public GenericRepository(CozyDbContext dbContext)
         {
@@ -25,7 +25,7 @@ namespace CozyCorners.Repository
             //    if (typeof(T)==typeof(Product))
             //       return (IEnumerable<T>) await _storeContext.Product.Include(p=>p.productType).Include(p => p.productBrand).ToListAsync();
 
-            return await _dbContext.Set<T>().ToListAsync();
+            return await _dbContext.Set<T>().AsNoTracking().ToListAsync();
         }
         public async Task<T?> GetById(int id)
         {

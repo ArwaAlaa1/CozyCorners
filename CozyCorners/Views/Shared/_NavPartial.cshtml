@@ -1,4 +1,7 @@
-﻿<div class="main-header">
+﻿@using CozyCorners.Core.Models.Identity
+@inject UserManager<AppUser> UserManager
+
+<div class="main-header mb-4">
     <div class="main-header-logo">
         <!-- Logo Header -->
         <div class="logo-header" data-background-color="dark">
@@ -282,21 +285,23 @@
                        href="#"
                        aria-expanded="false">
                         <div class="avatar-sm">
-                            <img src="assets/img/profile.jpg"
+                        
+                            <img src=""
                                  alt="..."
                                  class="avatar-img rounded-circle" />
                         </div>
                         <span class="profile-username">
                             <span class="op-7">Hi,</span>
-                            <span class="fw-bold">Hizrian</span>
+                            <span class="fw-bold">@UserManager.GetUserName(User)</span>
                         </span>
                     </a>
+                   
                     <ul class="dropdown-menu dropdown-user animated fadeIn">
-                        <div class="dropdown-user-scroll scrollbar-outer">
+                        <div class="dropdown-user-scroll scrollbar-outer"></div>
                         <li>
                             <div class="user-box">
                                 <div class="avatar-lg">
-                                    <img src="assets/img/profile.jpg"
+                                    <img src=""
                                          alt="image profile"
                                          class="avatar-img rounded" />
                                 </div>
@@ -318,12 +323,16 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Logout</a>
                         </li>
+                    
+                    </ul>
+      
+        
+                
+                
+             </ul>   
         </div>
-        </ul>
-        </li>
-        </ul>
+    </nav>            
 </div>
-          </nav>
-<!-- End Navbar -->
-        </div>
+         
+
         

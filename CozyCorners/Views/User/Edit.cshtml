@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_LayoutDashBoard.cshtml";
 }
 
 <div class="container-fluid p-5">
@@ -16,7 +17,7 @@
                 <form asp-action="AddUser" method="post" enctype="multipart/form-data">
                     <div class="card-body">
                         <div class="row">
-                            <input hidden asp-for="Id" />
+                            @* <input hidden asp-for="Id" /> *@
                             <div class="col-md-6">
 
                                 <div class="form-group mb-3">
@@ -49,10 +50,10 @@
                                     <option value="0">Select a Role Name</option>
                                 </select>
 
-                                <div class="form-group mb-3">
+                              @*   <div class="form-group mb-3">
                                     <label for="example-palaceholder">Photo</label>
                                     <input type="file" id="example-palaceholder" asp-for="Photo" class="form-control" placeholder="placeholder">
-                                </div>
+                                </div> *@
 
                                 <h3>Manage Roles</h3>
 

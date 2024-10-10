@@ -10,7 +10,7 @@ namespace CozyCorners.Core.Models
     public class Review:BaseEntity
     {
         
-        public int AppUserId { get; set; }
+        public string AppUserId { get; set; }
         public int ProductID { get; set; }
         public double Rating { get; set; }
         public string Comment { get; set; }

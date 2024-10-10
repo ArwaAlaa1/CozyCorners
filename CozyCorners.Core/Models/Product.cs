@@ -13,7 +13,7 @@ namespace CozyCorners.Core.Models
         public string Description { get; set; }
         public decimal Price { get; set; }
         public double Rating { get; set; }
-
+        public string PhotoPath { get; set; }
         public Category Category { get; set; }
 
         [ForeignKey(nameof(Category))]

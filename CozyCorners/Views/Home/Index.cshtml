@@ -1,9 +1,94 @@
-﻿@{
+﻿@using CozyCorners.Core
+@using CozyCorners.Core.Models
+@using CozyCorners.Core.Repositories.Contract
+@using CozyCorners.Repository
+
+@model HomeViewModel
+@{
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_LayoutSite.cshtml";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+
+
+<div id="fh5co-services" class="fh5co-bg-section">
+	<div class="container">
+		<div class="row">
+			@if (@Model.Categories.Count() > 0)
+			{
+				@for (int i = 0; i < 2; i++)
+				{
+					<div class="col-md-4 col-sm-4 text-center">
+						<div class="feature-center animate-box" data-animate-effect="fadeIn">
+							<span class="icon ">
+								<img src="@Model.Categories[i].PhotoPath"  style="object-fit: cover;" />
+							</span>
+							<h3>@Model.Categories[i].Name</h3>
+							<p>@Model.Categories[i].Description</p>
+							<p><a asp-action="ProductsForCategory" class="btn btn-primary btn-outline">See More</a></p>
+						</div>
+					</div>
+				
+
+				}
+			}
+
+		
+			
+			
+		</div>
+	</div>
 </div>
+
+
+
+
+
+
+
+
+<div id="fh5co-product">
+	<div class="container">
+		<div class="row animate-box">
+			<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+				<span>Cool Stuff</span>
+				<h2>Products.</h2>
+				<p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
+			</div>
+		</div>
+		@if (@Model.Products.Count() > 0)
+		{
+			for (int i = 0; i < @Model.Products.Count(); i += 3) 
+			{
+				<div class="row">
+					@for (int j = 0; j < 3; j++) 
+					{
+						if (i + j < @Model.Products.Count()) 
+						{
+							<div class="col-md-4 text-center animate-box">
+								<div class="product">
+									<div class="product-grid" style="background-image:url(@Model.Products[i + j].PhotoPath);">
+										<div class="inner">
+											<p>
+												<a href="single.html" class="icon"><i class="icon-shopping-cart"></i></a>
+												<a href="single.html" class="icon"><i class="icon-eye"></i></a>
+											</p>
+										</div>
+									</div>
+									<div class="desc">
+										<h3><a href="single.html">@Model.Products[i + j].Name</a></h3>
+										<span class="price">$@Model.Products[i + j].Price</span>
+									</div>
+								</div>
+							</div>
+						}
+					}
+				</div>
+			}
+		}
+
+	</div>
+</div>
+
+

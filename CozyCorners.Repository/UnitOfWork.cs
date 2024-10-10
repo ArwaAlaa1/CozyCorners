@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CozyCorners.Repository
 {
-    public class UnitOfWork
+    public class UnitOfWork:IUnitOfWork
     {
 
         private readonly CozyDbContext _dbContext;
@@ -33,6 +33,7 @@ namespace CozyCorners.Repository
             }
             return _Repositories[type] as IGenericRepository<TEntity>;
         }
+
         public async Task<int> Complet()
          => await _dbContext.SaveChangesAsync();
 

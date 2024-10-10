@@ -6,6 +6,7 @@
 
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutDashBoard.cshtml";
 }
 
 <div class="w-75 m-auto bg-white p-5">
@@ -35,7 +36,7 @@
                         <td>@item.Name</td>
                         <td>
                             <a class="btn btn-outline-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                            <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            <a class="js-delete btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                         </td>
 
                         <td>
@@ -60,3 +61,21 @@
         <div class="text-danger w-50 m-auto "> There is no roles</div>
     }
 </div>
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $(".js-delete").on("click", function () {
+                if (confirm("are you sure?")) {
+                    $.ajax({
+                        url: "/Role/Delete" + $(this).attr("data-std-id"),
+                        method: "Delete",
+                        success: function () {
+
+                            // console.log("delete confirmed");
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}

@@ -9,7 +9,7 @@ namespace CozyCorners.Core.Models.Identity
 {
     public class AppUser : IdentityUser
     {
-        public string DisplayName { get; set; }
+        public string? DisplayName { get; set; }
         public string? Photo { get; set; }
        
     }

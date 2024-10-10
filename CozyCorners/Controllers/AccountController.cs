@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using CozyCorners.ViewModels;
+using CozyCorners.Extentions;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 namespace CozyCorners.Controllers
@@ -19,20 +21,68 @@ namespace CozyCorners.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
-        public IActionResult Index()
+        //public IActionResult Index()
+        //{
+        //    return View();
+        //}
+
+        public IActionResult Register()
         {
+
+           
             return View();
         }
 
-		public IActionResult DashBoard()
-		{
-			ViewBag.Layout = "~/Views/Shared/_LayoutDashBoard.cshtml";
 
-			//ClaimsPrincipal claimsPrincipal = HttpContext.User;
-			//if (claimsPrincipal.Identity.IsAuthenticated)
-			//	return RedirectToAction("Index", "Home");
-			return RedirectToAction("IndexAdmin","Home");
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Register(RegisterViewModel registerViewModel)
+		{
+			var user = new AppUser();
+			if (!ModelState.IsValid)
+			{
+				
+
+				return View();
+			}
+			try
+			{
+
+					user = new AppUser()
+					{
+						UserName = registerViewModel.UserName,
+						Email = registerViewModel.Email
+					};
+				
+
+
+				// Create the user in the system
+				var createUserResult = await _userManager.CreateAsync(user, registerViewModel.Password);
+
+				if (createUserResult.Succeeded)
+				{
+
+					return RedirectToAction(nameof(Signin));
+
+
+				}
+				else
+				{
+					// If user creation failed, add the errors to the ModelState
+					foreach (var error in createUserResult.Errors)
+					{
+						ModelState.AddModelError(string.Empty, error.Description);
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				ModelState.AddModelError(string.Empty, ex.Message);
+			}
+
+			return View(registerViewModel);
 		}
+
 		public async Task<IActionResult> Signin()
         {
 
@@ -52,7 +102,7 @@ namespace CozyCorners.Controllers
                 return RedirectToAction(nameof(Signin));
             }
 
-            var result1 = await _signInManager.CheckPasswordSignInAsync(user, login.Password, false);
+            //var result1 = await _signInManager.CheckPasswordSignInAsync(user, login.Password, false);
 
 			var result = await _signInManager.PasswordSignInAsync(user.UserName, login.Password, login.RememberMe, lockoutOnFailure: false);
 
