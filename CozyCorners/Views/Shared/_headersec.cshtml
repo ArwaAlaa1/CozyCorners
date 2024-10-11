@@ -46,8 +46,15 @@
 								</span>
 							</div>
 						</li>
-						<li class="shopping-cart"><a href="#" class="cart"><span><small>0</small><i class="icon-shopping-cart"></i></span></a></li>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <li class="shopping-cart"><a asp-action="GetCart" asp-route-id="@UserManager.GetUserId(User)" asp-controller="Cart" class="cart"><span><small>0</small><i class="fa-solid fa-cart-shopping"></i></span></a></li>
 
+                    }else{
+                        <li class="shopping-cart"><a asp-action="GetCart" asp-controller="Cart" class="cart"><span><small>0</small><i class="fa-solid fa-cart-shopping"></i></span></a></li>
+
+                    }
+                   
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa-solid fa-user"></i>
@@ -95,7 +102,9 @@
                             }
                         </ul>
                     </li>
+                  
                     </ul>
+                
 				</div>
 			</div>
 
@@ -117,7 +126,7 @@
                                     <span class="price">$@product.Price</span>
                                     <h2>@product.Name</h2>
                                     <p>@product.Description</p>
-                                    <p><a href="single.html" class="btn btn-primary btn-outline btn-lg">Purchase Now</a></p>
+                                    <p><a asp-action="AddCart" asp-controller="Cart" asp-route-ProductId="@product.Id" class="btn btn-primary btn-outline btn-lg">Purchase Now</a></p>
                                 </div>
                             </div>
                         </div>

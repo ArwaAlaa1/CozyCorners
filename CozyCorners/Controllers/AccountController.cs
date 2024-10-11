@@ -114,7 +114,8 @@ namespace CozyCorners.Controllers
                 // Create a list of claims including the role claims
                 List<Claim> claims = new List<Claim>()
         {
-            new Claim(ClaimTypes.Name, login.UserName)
+            new Claim(ClaimTypes.Name, login.UserName),
+            new Claim(ClaimTypes.NameIdentifier,user.Id)
         };
 
                 if (roles != null && roles.Any())

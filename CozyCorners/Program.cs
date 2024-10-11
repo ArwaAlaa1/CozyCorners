@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using CozyCorners.Extentions;
 using CozyCorners.Core.Repositories.Contract;
 using CozyCorners.Repository.Repositories;
+using StackExchange.Redis;
 
 namespace CozyCorners
 {
@@ -33,8 +34,14 @@ namespace CozyCorners
                 options.UseSqlServer(builder.Configuration.GetConnectionString("conn"));
             });
 
-          
+            builder.Services.AddSingleton<IConnectionMultiplexer>((services) =>
+            {
+                var conn = builder.Configuration.GetConnectionString("Redis");
 
+				return ConnectionMultiplexer.Connect(conn);
+            });
+
+            builder.Services.AddScoped<ICartRepository,CartRepository>();
             builder.Services.AddIdentity<AppUser, IdentityRole>()
                .AddEntityFrameworkStores<CozyDbContext>();
 

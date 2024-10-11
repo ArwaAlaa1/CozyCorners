@@ -10,6 +10,62 @@
 * 	Template Style 
 *
 * ======================================================= */
+  .cart-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .cart-item {
+            background: white;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .cart-item img {
+            max-width: 100px;
+            margin-right: 20px;
+        }
+        .item-details {
+            flex: 1;
+        }
+        .item-price {
+            font-weight: bold;
+            margin-right: 20px;
+        }
+        .stock-status {
+            color: red;
+            font-size: 0.9rem;
+        }
+        .summary {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 300px;
+            align-self: start;
+        }
+        .summary .order-summary {
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+        .summary .total-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .checkout-btn {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+            width: 100%;
+            border: none;
+            padding: 10px;
+            margin-top: 15px;
+        }
 .icon img {
     height: 150px; /* or any specific height you want */
     width: auto; /* to maintain aspect ratio */
@@ -868,6 +924,47 @@ h1, h2, h3, h4, h5, h6, figure {
 .product:hover .inner, .product:focus .inner {
   opacity: 1;
 }
+.scroll-container {
+    overflow-x: auto; /* Enables horizontal scrolling */
+    white-space: nowrap; /* Prevents line breaks in the container */
+    padding: 20px 0; /* Add vertical spacing */
+}
+
+.category-card {
+    display: inline-block; /* Allow cards to sit side by side */
+    width: 200px; /* Fixed width for the cards */
+    margin-right: 20px; /* Space between cards */
+    text-align: center; /* Center text in the card */
+    background: #f8f8f8; /* Background color for the cards */
+    border-radius: 10px; /* Rounded corners */
+    padding: 15px; /* Inner spacing */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+}
+
+.icon-container {
+    background: #f0e68c; /* Background color for the icons */
+    border-radius: 50%; /* Circular icon background */
+    width: 60px; /* Width of the icon background */
+    height: 60px; /* Height of the icon background */
+    display: flex; /* Use flexbox for centering */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    margin: 0 auto 10px; /* Center the icon and space it from the text */
+}
+
+.btn {
+    background: #d6c95e; /* Button background color */
+    color: white; /* Button text color */
+    padding: 10px 15px; /* Button padding */
+    border: none; /* Remove button border */
+    border-radius: 5px; /* Rounded button corners */
+    text-decoration: none; /* Remove underline */
+}
+
+    .btn:hover {
+        background: #c5b52f; /* Button hover color */
+    }
+
 .product:hover .desc h3 a, .product:focus .desc h3 a {
   color: #d1c286;
 }

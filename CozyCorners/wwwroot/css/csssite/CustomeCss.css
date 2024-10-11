@@ -1,0 +1,178 @@
+﻿  .product-grid
+
+{
+    position: relative;
+    background-size: cover;
+    height: 300px; /* Adjust height as necessary */
+}
+
+.inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-group {
+    display: flex;
+    gap: 10px; /* Space between buttons */
+}
+
+.btn {
+    background-color: rgba(255, 255, 255, 0.8); /* Light background for contrast */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+    .btn:hover {
+        background-color: #f8f9fa; /* Lighter on hover */
+        transform: scale(1.05); /* Slightly enlarge on hover */
+    }
+
+/* Optional: Add custom styles for icons */
+.icon-shopping-cart,
+.icon-eye {
+    font-size: 1.5em; /* Adjust icon size */
+}
+
+/* Adjust spacing for description */
+.desc {
+    margin-top: 15px;
+}
+
+.category-scroll-container {
+    position: relative;
+    overflow: hidden; /* Hide overflow to allow for scrolling effect */
+    max-width: 100%; /* Adjust as necessary */
+}
+
+.category-scroll {
+    display: flex; /* Use flex to align items horizontally */
+    transition: transform 0.5s ease; /* Smooth scrolling */
+    width: calc(100% + 30px); /* Ensure it scrolls smoothly */
+}
+
+.col-md-4 {
+    flex: 0 0 auto; /* Prevent the items from shrinking */
+    width: 33.33%; /* Each item takes up one-third of the container */
+}
+
+.scroll-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+    border: none;
+    font-size: 30px;
+    cursor: pointer;
+    z-index: 10; /* Ensure buttons are on top of content */
+}
+
+    .scroll-btn.left {
+        left: 10px; /* Position for left button */
+    }
+
+    .scroll-btn.right {
+        right: 10px; /* Position for right button */
+    }
+
+    .scroll-btn:hover {
+        background-color: #f0f0f0; /* Change color on hover */
+    }
+
+
+.product-grid {
+    position: relative; /* Set position relative for absolute positioning of buttons */
+    height: 300px; /* Set a fixed height for the product grid */
+    background-size: cover; /* Cover the entire div with the background image */
+    background-position: center; /* Center the image */
+}
+
+.inner {
+    position: absolute; /* Position absolutely to overlay on the product image */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust position to be exactly centered */
+    display: flex; /* Use flexbox for buttons */
+    gap: 10px; /* Space between buttons */
+}
+
+.btn-group {
+    display: flex; /* Ensure buttons are in a row */
+    flex-direction: row; /* Align buttons horizontally */
+    justify-content: center; /* Center buttons */
+}
+
+.btn {
+    background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent background */
+    border: none; /* No border */
+    padding: 10px; /* Add padding for click area */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+    .btn:hover {
+        background-color: rgba(255, 255, 255, 1); /* Full color on hover */
+    }
+.category-scroll-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden; /* Hide overflow to keep the scrolling clean */
+}
+
+.category-scroll {
+    display: flex; /* Change to flex for horizontal scrolling */
+    overflow-x: auto; /* Allow horizontal scrolling */
+    scroll-behavior: smooth; /* Smooth scrolling */
+    padding: 20px 0; /* Add padding for visual spacing */
+}
+
+    .category-scroll .row {
+        display: flex; /* Ensure row uses flexbox */
+        flex-wrap: nowrap; /* Prevent wrapping to keep all items in a single row */
+    }
+
+    .category-scroll .col-md-4 {
+        margin-right: 20px; /* Space between items */
+    }
+
+    /* Optional: Hide the scrollbar for a cleaner look */
+    .category-scroll::-webkit-scrollbar {
+        display: none;
+    }
+
+/* Scroll button styles */
+.scroll-btn {
+    background-color: #fff; /* Change as needed */
+    border: 1px solid #ccc; /* Change as needed */
+    border-radius: 50%; /* Make buttons circular */
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1; /* Ensure buttons are above the scroll area */
+}
+
+    .scroll-btn.left {
+        position: absolute;
+        left: 10px; /* Position it on the left */
+    }
+
+    .scroll-btn.right {
+        position: absolute;
+        right: 10px; /* Position it on the right */
+    }
+.product-grid {
+    height: 300px; /* Set a consistent height for the product grid */
+    position: relative; /* Required for absolute positioning of inner elements */
+}
+
+.inner {
+    position: absolute; /* Positioning to center the buttons */
+    top: 50%; /* Move the top edge to the middle */
+    left: 50%; /* Move the left edge to the middle */
+    transform: translate(-50%, -50%); /* Center the buttons */
+}
