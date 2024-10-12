@@ -195,5 +195,15 @@ namespace CozyCorners.Controllers
 
 
         }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ProductDetails(int id)
+        {
+            var product=await _productRepository.GetById(id);
+            
+            return View(product);
+        }
     }
 }

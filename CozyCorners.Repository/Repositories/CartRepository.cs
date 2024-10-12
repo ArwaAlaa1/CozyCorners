@@ -35,7 +35,12 @@ namespace CozyCorners.Repository.Repositories
 			if (!createdOrUpdated) return null;
 			return await GetCustomerCartAsync(cart.Id);
 		}
+        public  int GetCustomerCartItemsAsync(string BasketId)
+        {
+            var basket =  _database.StringGet(BasketId);
+			
+            return basket.IsNullOrEmpty ? 0 :JsonSerializer.Deserialize<CustomerCart?>(basket).CartItems.Count();
+        }
 
-	
-	}
+    }
 }

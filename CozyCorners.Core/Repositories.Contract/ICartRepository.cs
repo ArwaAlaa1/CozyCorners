@@ -10,6 +10,7 @@ namespace CozyCorners.Core.Repositories.Contract
     public interface ICartRepository
     {
        Task<CustomerCart?> GetCustomerCartAsync(string BasketId);
+        int GetCustomerCartItemsAsync(string BasketId);
 
         Task<CustomerCart?> UpdateBasketAsync(CustomerCart cart);    
         Task<bool> DeleteCartAsync(string BasketId);
