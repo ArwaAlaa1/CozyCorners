@@ -21,18 +21,7 @@
     gap: 10px; /* Space between buttons */
 }
 
-.btn {
-    background-color: rgba(255, 255, 255, 0.8); /* Light background for contrast */
-    border: none;
-    border-radius: 5px;
-    padding: 10px 15px;
-    transition: background-color 0.3s, transform 0.3s;
-}
 
-    .btn:hover {
-        background-color: #f8f9fa; /* Lighter on hover */
-        transform: scale(1.05); /* Slightly enlarge on hover */
-    }
 
 /* Optional: Add custom styles for icons */
 .icon-shopping-cart,
@@ -108,16 +97,16 @@
     justify-content: center; /* Center buttons */
 }
 
-.btn {
-    background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent background */
-    border: none; /* No border */
-    padding: 10px; /* Add padding for click area */
-    transition: background-color 0.3s; /* Smooth transition for hover effect */
-}
+/*.btn {
+    background-color: rgba(255, 255, 255, 0.8);*/ /* Slightly transparent background */
+    /*border: none;*/ /* No border */
+    /*padding: 10px;*/ /* Add padding for click area */
+    /*transition: background-color 0.3s;*/ /* Smooth transition for hover effect */
+/*}
 
     .btn:hover {
-        background-color: rgba(255, 255, 255, 1); /* Full color on hover */
-    }
+        background-color: rgba(255, 255, 255, 1);*/ /* Full color on hover */
+    /*}*/
 .category-scroll-container {
     display: flex;
     align-items: center;
@@ -203,3 +192,17 @@
 .quantity-input {
     width: 80px;
 }
+.btn {
+    background-color: #d9c68e; /* Beige color */
+    color: white; /* White text */
+    border: none; /* Remove border */
+    padding: 10px 20px; /* Padding for button */
+    font-size: 16px; /* Adjust text size */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+    .btn:hover {
+        background-color: #c8b578; /* Slightly darker beige on hover */
+    }

@@ -5,52 +5,168 @@
     Layout = "~/Views/Shared/_LayoutSite.cshtml";
 }
 
-<div class="container mt-5 bg-secondary p-5">
-    <div class="row">
-        <!-- Product Image -->
-        <div class="col-md-6">
-            <img id="productImage" src="@Model.PhotoPath" alt="Product Image" class="product-image">
-        </div>
+<header id="fh5co-header" class="fh5co-cover fh5co-cover-sm" role="banner" style="background-image:url(~/images/img_bg_2.jpg);">
+	<div class="overlay"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2 text-center">
+				<div class="display-t">
+					<div class="display-tc animate-box" data-animate-effect="fadeIn">
+						<h1>Product Details</h1>
+						@* <h2>Free html5 templates by <a href="https://themewagon.com/theme_tag/free/" target="_blank">Themewagon</a></h2> *@
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
 
-        <!-- Product Details -->
-        <div class="col-md-6">
-            <h1 id="productName">@Model.Name</h1>
-            <p id="productDescription">@Model.Description</p>
+<div id="fh5co-product">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1 animate-box">
+				<div class="owl-carousel owl-carousel-fullwidth product-carousel">
+					<div class="item">
+						<div class="active text-center">
+							<figure>
+								<img src="@Model.PhotoPath" alt="user">
+							</figure>
+						</div>
+					</div>
+					 <div class="item">
+						<div class="active text-center">
+							<figure>
+								<img src="images/product-single-2.jpg" alt="user">
+							</figure>
+						</div>
+					</div>
+					<div class="item">
+						<div class="active text-center">
+							<figure>
+								<img src="images/product-single-3.jpg" alt="user">
+							</figure>
+						</div>
+					</div>
+					<div class="item">
+						<div class="active text-center">
+							<figure>
+								<img src="images/product-single-4.jpg" alt="user">
+							</figure>
+						</div>
+					</div>
+					<div class="item">
+						<div class="active text-center">
+							<figure>
+								<img src="images/product-single-5.jpg" alt="user">
+							</figure>
+						</div>
+					</div> 
+				</div>
+				<div class="row animate-box">
+					<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+						<h2>@Model.Name</h2>
+                 
+						<form method="post" asp-action="AddCart" asp-controller="Cart" class="add-to-cart-form">
+							@Html.AntiForgeryToken()
+							<input type="hidden" name="ProductId" value="@Model.Id" />
+							@* <label for="quantity" class="form-label">Quantity:</label> *@
+							<input type="number" id="quantity" name="quantity" class="form-control quantity-input" value="1" min="1">
+							<button type="submit" class=" btn-primary mt-3">Add to Cart</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1">
+				<div class="fh5co-tabs animate-box">
+					<ul class="fh5co-tab-nav">
+						<li class="active"><a href="#" data-tab="1"><span class="icon visible-xs"><i class="icon-file"></i></span><span class="hidden-xs">Product Details</span></a></li>
+						<li><a href="#" data-tab="2"><span class="icon visible-xs"><i class="icon-bar-graph"></i></span><span class="hidden-xs">Specification</span></a></li>
+						<li><a href="#" data-tab="3"><span class="icon visible-xs"><i class="icon-star"></i></span><span class="hidden-xs">Feedback &amp; Ratings</span></a></li>
+					</ul>
 
-            <!-- Price -->
-            <div class="product-price">
-                $<span id="productPrice">@Model.Price</span>
-            </div>
+					<!-- Tabs -->
+					<div class="fh5co-tab-content-wrap">
 
-            <!-- Rating -->
-            <div class="mt-3">
-                <span id="productRating" class="rating-stars">
-                    &#9733;&#9733;&#9733;&#9733;&#9734; <!-- Example rating -->
-                </span>
-                (4.0)
-            </div>
+						<div class="fh5co-tab-content tab-content active" data-tab-content="1">
+							<div class="col-md-10 col-md-offset-1">
+								<span class="price">$@Model.Price</span>
+								<h2>@Model.Name</h2>
+								<p>@Model.Description</p>
 
-            <!-- Category -->
-            <div class="category-tag">
-                Category: <span id="productCategory">@Model.Category.Name</span>
-            </div>
+								
+								<div class="row">
+									<div class="col-md-6">
+										<h2 class="uppercase">Category</h2>
+										<p>@Model.Category.Name</p>
+									</div>
+									@* <div class="col-md-6">
+										<h2 class="uppercase">Less is more</h2>
+										<p>Ullam dolorum iure dolore dicta fuga ipsa velit veritatis</p>
+									</div> *@
+								</div>
 
-            <!-- Quantity Selector -->
-          @*   <div class="mt-4">
-                <label for="quantity" class="form-label">Quantity:</label>
-                <input type="number" id="quantity" name="Quantity" class="form-control quantity-input" value="1" min="1">
-            </div> *@
+							</div>
+						</div>
 
-            <!-- Add to Cart Form -->
-            <form method="post" asp-action="AddCart" asp-controller="Cart" class="add-to-cart-form">
-                @Html.AntiForgeryToken()
-                <input type="hidden" name="ProductId" value="@Model.Id" />
-                <label for="quantity" class="form-label">Quantity:</label>
-                <input type="number" id="quantity" name="quantity" class="form-control quantity-input" value="1" min="1">
-                <button type="submit" class="btn btn-primary mt-3">Add to Cart</button>
-            </form>
-        </div>
-    </div>
+						<div class="fh5co-tab-content tab-content" data-tab-content="2">
+							<div class="col-md-10 col-md-offset-1">
+								<h3>Product Specification</h3>
+								<ul>
+									<li>Paragraph placeat quis fugiat provident veritatis quia iure a debitis adipisci dignissimos consectetur magni quas eius</li>
+									<li>adipisci dignissimos consectetur magni quas eius nobis reprehenderit soluta eligendi</li>
+									<li>Veritatis tenetur odio delectus quibusdam officiis est.</li>
+									<li>Magni quas eius nobis reprehenderit soluta eligendi quo reiciendis fugit? Veritatis tenetur odio delectus quibusdam officiis est.</li>
+								</ul>
+								<ul>
+									<li>Paragraph placeat quis fugiat provident veritatis quia iure a debitis adipisci dignissimos consectetur magni quas eius</li>
+									<li>adipisci dignissimos consectetur magni quas eius nobis reprehenderit soluta eligendi</li>
+									<li>Veritatis tenetur odio delectus quibusdam officiis est.</li>
+									<li>Magni quas eius nobis reprehenderit soluta eligendi quo reiciendis fugit? Veritatis tenetur odio delectus quibusdam officiis est.</li>
+								</ul>
+							</div>
+						</div>
+
+						<div class="fh5co-tab-content tab-content" data-tab-content="3">
+							<div class="col-md-10 col-md-offset-1">
+								<h3>Happy Buyers</h3>
+								<div class="feed">
+									<div>
+										<blockquote>
+											<p>Paragraph placeat quis fugiat provident veritatis quia iure a debitis adipisci dignissimos consectetur magni quas eius nobis reprehenderit soluta eligendi quo reiciendis fugit? Veritatis tenetur odio delectus quibusdam officiis est.</p>
+										</blockquote>
+										<h3>&mdash; Louie Knight</h3>
+										<span class="rate">
+											<i class="icon-star2"></i>
+											<i class="icon-star2"></i>
+											<i class="icon-star2"></i>
+											<i class="icon-star2"></i>
+											<i class="icon-star2"></i>
+										</span>
+									</div>
+									<div>
+										<blockquote>
+											<p>Paragraph placeat quis fugiat provident veritatis quia iure a debitis adipisci dignissimos consectetur magni quas eius nobis reprehenderit soluta eligendi quo reiciendis fugit? Veritatis tenetur odio delectus quibusdam officiis est.</p>
+										</blockquote>
+										<h3>&mdash; Joefrey Gwapo</h3>
+										<span class="rate">
+											<i class="icon-star2"></i>
+											<i class="icon-star2"></i>
+											<i class="icon-star2"></i>
+											<i class="icon-star2"></i>
+											<i class="icon-star2"></i>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 @section scripts {
