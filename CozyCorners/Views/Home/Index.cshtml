@@ -17,10 +17,15 @@
     var products = await _productRepository.GetTopProducts(3); // Fetch the top 3 products directly
 }
 
-
-
-
 <aside id="fh5co-hero" class="js-fullheight">
+    <div class="row">
+        <div class= "col-md-6">
+            <form class="d-flex" asp-action ="Index" asp-controller="Product">
+                <input name = "searchString" class="form-control me-1" type = "sarch" placeholder="Search" aria-lable="Search" />
+                <button class = "btn btn-dark" type="submit"> Search</button>
+            </form>
+        </div>
+    </div>
     <div class="flexslider js-fullheight">
         <ul class="slides">
             @for (int i = 0; i < products.Count; i++)
@@ -39,7 +44,6 @@
                                         <span class="price">$@product.Price</span>
                                         <h2>@product.Name</h2>
                                         <p>@product.Description</p>
-
                                         <button class="btn btn-primary btn-outline btn-lg icon" type="submit" title="Add to Cart">
                                            Purchase Now
                                         </button>

@@ -38,7 +38,7 @@ namespace CozyCorners
             {
                 var conn = builder.Configuration.GetConnectionString("Redis");
 
-				return ConnectionMultiplexer.Connect(conn);
+                return ConnectionMultiplexer.Connect(conn);
             });
 
             builder.Services.AddScoped<ICartRepository,CartRepository>();
