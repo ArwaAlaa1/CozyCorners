@@ -13,6 +13,10 @@ using CozyCorners.Extentions;
 using CozyCorners.Core.Repositories.Contract;
 using CozyCorners.Repository.Repositories;
 using StackExchange.Redis;
+using CozyCorners.Core.Services.Contract;
+using CozyCorners.Core.Models.Order;
+using CozyCorners.Services;
+using Stripe;
 
 namespace CozyCorners
 {
@@ -46,13 +50,14 @@ namespace CozyCorners
                .AddEntityFrameworkStores<CozyDbContext>();
 
             //builder.Services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
-            
+            builder.Services.Configure<StripeSetting>(builder.Configuration.GetSection("Stripe"));
            
             builder.Services.AddAutoMapper(typeof(MappingProfiles));
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             builder.Services.AddScoped(typeof(IProductRepository), typeof(ProductRepository));
 
             builder.Services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
+            builder.Services.AddScoped(typeof(IOrderServices), typeof(OrderServices));
             builder.Services.AddScoped<CategoryServices>();
             builder.Services.AddScoped<ProductServices>();
             builder.Services.AddAuthentication("Cookies")
@@ -88,7 +93,7 @@ namespace CozyCorners
 
                 var usermanager = services.GetRequiredService<UserManager<AppUser>>();
 				var rolemanager = services.GetRequiredService<RoleManager<IdentityRole>>();
-				await AppSeeding.SeedAsync(usermanager,rolemanager);
+				await AppSeeding.SeedAsync(usermanager,rolemanager,dbcontext);
 
             }
             catch (Exception ex)
@@ -112,6 +117,7 @@ namespace CozyCorners
             app.UseStaticFiles();
 
             app.UseRouting();
+            StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();
            app.UseAuthentication();
             app.UseAuthorization();
 

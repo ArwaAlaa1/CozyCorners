@@ -1,4 +1,5 @@
-﻿using CozyCorners.Core.Models.Identity;
+﻿using CozyCorners.Core;
+using CozyCorners.Core.Models.Identity;
 using CozyCorners.Core.Models.Order;
 using CozyCorners.Core.Repositories.Contract;
 using Microsoft.AspNetCore.Authorization;
@@ -16,18 +17,22 @@ namespace CozyCorners.Controllers
         private readonly ICartRepository _cartRepository;
         private readonly IProductRepository _productRepository;
         private readonly UserManager<AppUser> _userManager;
+        private readonly IUnitOfWork unitOfWork;
 
-        public CartController(ICartRepository cartRepository, IProductRepository productRepository, UserManager<AppUser> userManager)
+
+        public CartController(ICartRepository cartRepository, IProductRepository productRepository, UserManager<AppUser> userManager,IUnitOfWork unitOfWork)
         {
             _cartRepository = cartRepository;
             _productRepository = productRepository;
             _userManager = userManager;
+            this.unitOfWork = unitOfWork;
+            
         }
 
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken] // Validate the anti-forgery token
-        public async Task<ActionResult> AddCart(int ProductId, int? quantity)
+        public async Task<ActionResult> AddCart(int ProductId, int quantity)
         {
             var product = await _productRepository.GetById(ProductId);
 
@@ -36,24 +41,8 @@ namespace CozyCorners.Controllers
                 return NotFound(); // Handle product not found
             }
 
-            var cartItem = new CartItem();
-            if (quantity == null)
-            {
 
-                cartItem = new CartItem()
-                {
-                    Id = ProductId,
-                    ImageUrl = product.PhotoPath,
-                    ProductName = product.Name,
-                    Price = product.Price,
-                    Category = product.Category.Name,
-                    Quantity = 1
-                };
-
-            }
-            else
-            {
-                cartItem = new CartItem()
+              var  cartItem = new CartItem()
                 {
                     Id = ProductId,
                     ImageUrl = product.PhotoPath,
@@ -63,12 +52,12 @@ namespace CozyCorners.Controllers
                     Quantity = quantity
                 };
 
-            }
+            
             var userId = _userManager.GetUserId(User);
             var cart = await _cartRepository.GetCustomerCartAsync(userId) ?? new CustomerCart { Id = userId, CartItems = new List<CartItem>() };
 
             cart.CartItems.Add(cartItem);
-
+           
             await _cartRepository.UpdateBasketAsync(cart);
             TempData["Message"] = $"This Item Added To Cart !";
 
@@ -83,7 +72,12 @@ namespace CozyCorners.Controllers
           
                 var basket = await _cartRepository.GetCustomerCartAsync(id);
             if (basket is not null)
+            {
+                var deliverymethod = await unitOfWork.Repository<DeliveryMethod>().GetAllAsync();
+                basket.DeliveryMethods = deliverymethod; 
                 return View(basket);
+            }
+  
             else
                 return View("CatNotFound");
 
@@ -109,6 +103,40 @@ namespace CozyCorners.Controllers
             }
 
 
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<CheckOut>> CheckOut(CustomerCart customerCart)
+        {
+            try
+            {
+               var updated = await _cartRepository.UpdateBasketAsync(customerCart);
+            }
+            catch (Exception ex )
+            {
+
+                
+            }
+            
+            //var cart = await _cartRepository.GetCustomerCartAsync(Id);
+            var deliverymethod = await unitOfWork.Repository<DeliveryMethod>().GetById(customerCart.DeliveryMethodId);
+
+            var ordersumary = new OrderSummary()
+            {
+                NumberOfItems = customerCart.CartItems.Sum(item => item.Quantity),
+                SubTotal = customerCart.CartItems.Sum(item => item.Price * item.Quantity),
+                ShippingCost = deliverymethod.Cost,
+                TotalPrice = (customerCart.CartItems.Sum(item => item.Price * item.Quantity)) + deliverymethod.Cost
+
+            };
+            var Chekout = new CheckOut()
+            {
+                Id = customerCart.Id,
+                CartItems = customerCart.CartItems,
+                DeliveryMethod = deliverymethod,
+                OrderDetails = ordersumary
+            };
+            return View(Chekout);
         }
     }
 }
