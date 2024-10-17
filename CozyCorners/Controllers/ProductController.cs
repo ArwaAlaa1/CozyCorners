@@ -197,13 +197,32 @@ namespace CozyCorners.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpGet]
+        
         public async Task<IActionResult> ProductDetails(int id)
         {
             var product=await _productRepository.GetById(id);
             
             return View(product);
+        }
+
+        public async Task<ActionResult> SeeMore(int id)
+        {
+            var Products = await _productRepository.GetAllAsync();
+            var products = Products.Where(p => p.CategoryId == id).ToList();
+
+
+            var mappedProducts = _mapper.Map<IEnumerable<Product>, IEnumerable<ProductVM>>(products);
+            return View(mappedProducts);
+        }
+
+        public async Task<ActionResult> Shop()
+        {
+            var Products = await _productRepository.GetAllAsync();
+            var products = Products.Take(30).ToList();
+
+            var mappedProducts = _mapper.Map<IEnumerable<Product>, IEnumerable<ProductVM>>(products);
+            return View(mappedProducts);
         }
     }
 }

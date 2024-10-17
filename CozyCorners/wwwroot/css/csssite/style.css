@@ -1788,3 +1788,7 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 
 /*# sourceMappingURL=style.css.map */
+.custom-margin {
+    margin-top: 30px; /* Adjust the value based on your preference */
+    margin-bottom: 30px; /* Adjust the value based on your preference */
+}

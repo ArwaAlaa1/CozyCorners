@@ -14,10 +14,12 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.6" />
+    <PackageReference Include="Stripe.net" Version="46.2.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CozyCorners.Repository\CozyCorners.Repository.csproj" />
+    <ProjectReference Include="..\CozyCorners.Services\CozyCorners.Services.csproj" />
   </ItemGroup>
 
 </Project>

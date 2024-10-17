@@ -10,5 +10,8 @@ namespace CozyCorners.Core.Models.Order
 	{
         public string Id { get; set; }
         public List<CartItem> CartItems { get; set; }
+        public IReadOnlyList<DeliveryMethod> DeliveryMethods { get; set; }
+        public int DeliveryMethodId { get; set; }
+       
     }
 }

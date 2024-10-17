@@ -8,7 +8,14 @@ namespace CozyCorners.Core.Models.Order
 {
 	public class ProductItemOrder
 	{
-        public string ProductId { get; set; }
+        public ProductItemOrder(int productId, string productName, string photoUrl)
+        {
+            ProductId = productId;
+            ProductName = productName;
+            PhotoUrl = photoUrl;
+        }
+
+        public int ProductId { get; set; }
         public string ProductName { get; set; }
         public string  PhotoUrl { get; set; }
     }
