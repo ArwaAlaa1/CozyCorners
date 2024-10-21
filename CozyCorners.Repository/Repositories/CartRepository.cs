@@ -37,9 +37,18 @@ namespace CozyCorners.Repository.Repositories
 		}
 		public int GetCustomerCartItemsAsync(string BasketId)
 		{
-			var basket = _database.StringGet(BasketId);
+			try
+			{
+                var basket = _database.StringGet(BasketId);
 
-			return basket.IsNullOrEmpty ? 0 : JsonSerializer.Deserialize<CustomerCart?>(basket).CartItems.Count();
+                return basket.IsNullOrEmpty ? 0 : JsonSerializer.Deserialize<CustomerCart?>(basket).CartItems.Count();
+            }
+			catch (Exception ex)
+			{
+
+				return 0;
+			}
+			
 		}
 
 	}

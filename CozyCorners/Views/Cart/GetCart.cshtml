@@ -19,15 +19,16 @@
             </div>
         </div>
     </header>
+    <div class="clearfix"></div>
 
     <!-- Start form to include all cart items and order summary -->
     <form asp-action="CheckOut" asp-controller="Cart" method="post">
         <section class="h-100 h-custom p-5 mt-5 mb-5 custom-margin">
-            <div class="container p-5 m-5 custom-margin" style="border-radius: 10px; border: none; background-color:#FFFFFF;">
+            <div class="container p-4 mb-5" style="padding:30px 15px 30px 15px;border-radius: 10px; border: 1px solid #dee2e6; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); background-color:#FFFFFF;">
                 <div class="row">
                     <!-- Cart Items Section (Left) -->
-                    <div class="col-lg-8">
-                        <div class="card shadow-sm mb-5">
+                    <div class="col-lg-12">
+                        <div class="card shadow-sm mb-5" style="border-radius: 10px;">
                             <div class="card-body p-4">
                                 <div class="d-flex justify-content-between align-items-center mb-4">
                                     <h2 class="fw-bold">Shopping Cart</h2>
@@ -43,7 +44,7 @@
 
                                     <div class="row mb-3 d-flex justify-content-between align-items-center cart-item px-3">
                                         <div class="col-md-2 px-3">
-                                            <img src="@Model.CartItems[i].ImageUrl" class="img-fluid rounded-3 shadow-sm" />
+                                            <img src="@Model.CartItems[i].ImageUrl" class="img-fluid rounded-3 shadow-sm" style="border: 1px solid #dee2e6;" />
                                         </div>
                                         <div class="col-md-4 px-3">
                                             <h6 class="text-muted">@Model.CartItems[i].ProductName</h6>
@@ -85,15 +86,18 @@
                     </div>
 
                     <!-- Order Summary Section (Right) -->
-                    <div class="col-lg-4">
-                        <div class="card shadow-sm">
-                            <div class="card-body">
+                    <div class="col-lg-12">
+                        <div class="card shadow-sm" style="border-radius: 10px;">
+                            <div class="card-body p-4">
                                 <h3 class="fw-bold mb-4">Order Summary</h3>
                                 <hr class="my-3">
-                                <div class="d-flex justify-content-between mb-3">
-                                    <h5 class="text-uppercase">Items @Model.CartItems.Sum(item => item.Quantity)</h5>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+
+                                    <h5 class="text-uppercase mb-0 fw-bold ">Number Of Items: @Model.CartItems.Sum(item => item.Quantity)</h5>
                                 </div>
+
                                 <div class="mb-4">
+                                    <label for="deliveryMethod" class="form-label fw-bold ">Select Delivery Method</label>
                                     <select class="form-select" id="deliveryMethod" asp-for="DeliveryMethodId" required>
                                         <option value="">-- Select Delivery Method --</option>
                                         @foreach (var method in Model.DeliveryMethods)
@@ -102,24 +106,24 @@
                                         }
                                     </select>
                                 </div>
+
                                 <p>Selected Delivery Method: <span id="selectedDeliveryMethod">None</span></p>
                                 <p>Delivery Cost: <span id="deliveryCost">€0.00</span></p>
-                                <div class="d-flex justify-content-between mb-5">
-                                    <h4 class="text-uppercase">Total price :</h4>
-                                    <h5 id="total-price">€ @total.ToString("F2")</h5>
+                               <hr />
+                               <div class="d-flex justify-content-between mb-5">
+
+                                    <h4 id="total-price" class="fw-bold ">Total price :$ @total.ToString("F2")</h4>
                                 </div>
-                                <input hidden asp-for="DeliveryMethodId" />
+
+                                <!-- Place Checkout Button -->
                                 <button type="submit" class="btn btn-primary btn-block mt-3">CheckOut</button>
                             </div>
                         </div>
                     </div>
                 </div>
-
-             
             </div>
         </section>
     </form>
-
 }
 else
 {
@@ -176,47 +180,37 @@ else
                 // Add delivery cost to total
                 total += deliveryCost;
 
-                $('#total-price').text(total.toFixed(2)); // Update total in the view
+                $('#total-price').text(total.toFixed(2)); // Update total in the order summary
             }
 
-            // Increase quantity
+            // Delivery method change
+            $('#deliveryMethod').on("change", function () {
+                deliveryCost = parseFloat($('option:selected', this).data('cost')) || 0;
+                $("#selectedDeliveryMethod").text($('option:selected', this).text());
+                $("#deliveryCost").text(deliveryCost.toFixed(2));
+                updateTotals();
+            });
+
+            // Quantity increase and decrease
             $('.plus-quantity').on('click', function () {
-                const quantityInput = $(this).parent().find('.quantity');
-                let value = parseInt(quantityInput.val());
-                value++;
-                quantityInput.val(value);
-                updateTotals(); // Update totals after increment
-            });
-
-            // Decrease quantity
-            $('.minus-quantity').on('click', function () {
-                const quantityInput = $(this).parent().find('.quantity');
-                let value = parseInt(quantityInput.val());
-                if (value > 1) {
-                    value--;
-                    quantityInput.val(value);
-                    updateTotals(); // Update totals after decrement
+                const input = $(this).siblings('.quantity');
+                let value = parseInt(input.val());
+                if (value >= 1) {
+                    input.val(value + 1);
                 }
+                updateTotals();
             });
 
-            // Quantity input change event
-            $('.quantity').on('change', function () {
-                updateTotals(); // Update totals on input change
+            $('.minus-quantity').on('click', function () {
+                const input = $(this).siblings('.quantity');
+                let value = parseInt(input.val());
+                if (value > 1) {
+                    input.val(value - 1);
+                }
+                updateTotals();
             });
 
-            // Delivery method change event
-            $('#deliveryMethod').on('change', function () {
-                const selectedOption = $(this).find('option:selected');
-                deliveryCost = parseFloat(selectedOption.data('cost')) || 0;
-
-                $('#deliveryCost').text('€' + deliveryCost.toFixed(2));
-                $('#selectedDeliveryMethod').text(selectedOption.text());
-
-                updateTotals(); // Update totals after changing delivery method
-            });
-
-            // Initial totals calculation on page load
-            updateTotals();
+            updateTotals(); // Initial calculation
         });
     </script>
 }

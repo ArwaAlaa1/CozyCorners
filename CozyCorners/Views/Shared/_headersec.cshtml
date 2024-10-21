@@ -3,7 +3,7 @@
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
 @inject ICartRepository CartRepo
-
+@inject IOrderRepository order
 
 <nav class="fh5co-nav" role="navigation">
     <div class="container">
@@ -49,6 +49,15 @@
                                 </span>
                             </a>
                         </li>
+                       
+                        <li class="shopping-cart ">
+                            <a asp-action="GetOrdersForUser" asp-route-id="@cartid" asp-controller="Order" class="cart">
+                                <span>
+
+                                    <i class="fa-solid fa-truck"></i>
+                                </span>
+                            </a>
+                        </li>
                     }
 
                     else
@@ -58,6 +67,14 @@
                                 <span>
                                     <small>0</small>
                                     <i class="fa-solid fa-cart-shopping"></i>
+                                </span>
+                            </a>
+                        </li>
+                          <li class="shopping-cart ">
+                            <a asp-action="GetOrdersForUser" asp-controller="Order" class="cart">
+                                <span>
+
+                                    <i class="fa-solid fa-truck"></i>
                                 </span>
                             </a>
                         </li>

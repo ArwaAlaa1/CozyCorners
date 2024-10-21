@@ -1,149 +1,54 @@
-﻿
+﻿@using CozyCorners.Core.Models
+@model List<Category>
 @{
     ViewData["Title"] = "About";
+	Layout = "~/Views/Shared/_LayoutSite.cshtml";
 }
-<main>
-        <section id="about-us">
-            <h2>About Us</h2>
-        <p>Welcome to CozyCorner, your one-stop shop for all your furniture needs.
-            We're passionate about providing high-quality, stylish, and comfortable furniture to enhance your living spaces.</p>
-            <p>
-            With years of experience in the furniture industry, we've curated a diverse collection that caters to various tastes and styles. 
-            From modern minimalist pieces to classic traditional designs, we have something to suit every home.
-            </p>
-            <p>
-            Our commitment to customer satisfaction is unwavering. We strive to offer exceptional service,
-            competitive prices, and hassle-free shopping experiences.
-            Our knowledgeable team is always ready to assist you in finding the perfect furniture for your home.
-            </p>
-            <img src="./images/logo.jpg" alt="Company Logo">
-        </section>
-
-        <section id="team">
-            <h2>Our Team</h2>
-            <div class="team-member">
-                <img src="team-member1.jpg" alt="Team Member 1">
-                <h3>Arwa Alaa</h3>
-                <p>Full-Stack Developer</p>
-                <img src="team-member1.jpg" alt="Team Member 1">
-                <h3>Mazen Mohsen</h3>
-                <p>Back-end Developer</p> 
-                <img src="team-member1.jpg" alt="Team Member 1">
-                <h3>Yousef Magdy</h3>
-                <p>Back-end Developer</p>
-                <img src="team-member1.jpg" alt="Team Member 1">
-                <h3>Badr Mohamed</h3>
-                <p>Back-end Developer</p>
+<header id="fh5co-header" class="fh5co-cover fh5co-cover-sm" role="banner" style="background-image:url(/images/img_bg_2.jpg);">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 text-center">
+                <div class="display-t">
+                    <div class="display-tc animate-box" data-animate-effect="fadeIn">
+                        <h1>Our Categories</h1>
+                       
+                    </div>
+                </div>
             </div>
-        </section>
+        </div>
+    </div>
+</header>
+<div class="clearfix"></div>
 
-    <h2>Testimonials</h2>
-        <section id="testimonials">
-            <div class="testimonial-card">
-                <img src="../wwwroot/images/person1.jpg" alt="Testimonial Image">
-                <h3>Our Living Room Has Never Looked Better</h3>
-            <p> I was hesitant to buy furniture online, but I'm so glad I did.
-                The quality of the sofa is amazing,
-                and it's the perfect centerpiece for our living room. </p>
-            <h4>- Sarah M., New York</h4>
-            </div> 
-            <div class="testimonial-card">
-                <img src="../wwwroot/images/person1.jpg" alt="Testimonial Image">
-            <h3>Comfortable and Stylish</h3>
-            <p>I've been looking for a comfortable yet stylish dining set for months, and I finally found it in [Product Name].
-                The chairs are so soft, and the table is the perfect size for our family.</p>
-            <h4>- David L., Los Angeles</h4>
-            </div> 
-            <div class="testimonial-card">
-                <img src="../wwwroot/images/person1.jpg" alt="Testimonial Image">
-            <h3>Great Value for the Price</h3>
-            <p>I was surprised by the quality of the [Product Name] bed for the price.
-                It's incredibly comfortable and looks great in our bedroom. I highly recommend it.</p>
-            <h4>- Emily K., Chicago</h4>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-    </footer>
-
-    <script src="script.js"></script>
-
-<style>
-        /* Reset default styles */
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-        }
-
-        /* Header styling */
-        header {
-            /* Your header styles here */
-        }
-
-        /* Main content styling */
-        main {
-            padding: 20px;
-        }
-
-        /* About us section */
-        #about-us {
-            text-align: center;
-        }
-
-            #about-us img {
-                max-width: 100%;
-                height: auto;
+<div id="fh5co-product">
+    <div class="container">
+       
+        @if (Model.Count() > 0)
+        {
+            for (int i = 0; i < Model.Count(); i += 3)
+            {
+                <div class="row">
+                    @for (int j = 0; j < 3; j++)
+                    {
+                        if (i + j < Model.Count())
+                        {
+                            <div class="col-md-4 col-sm-4 text-center">
+                                <div class="feature-center animate-box" data-animate-effect="fadeIn">
+                                    <span class="icon ">
+                                        <img src="@Model[i].PhotoPath" style="object-fit: cover;" />
+                                    </span>
+                                    <h3>@Model[i].Name</h3>
+                                    <p>@Model[i].Description</p>
+                                    <p><a asp-action="SeeMore" asp-route-id="@Model[i].Id" asp-controller="Product" class="btn btn-primary btn-outline">See More</a></p>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
             }
-
-        /* Team section */
-        .team-member {
-            text-align: center;
-            margin-bottom: 20px;
         }
 
-            .team-member img {
-                width: 200px;
-                height: 200px;
-                border-radius: 50%;
-            }
+    </div>
 
-    #testimonials
-    {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-    }
-
-        .testimonial-card {
-            border: 1px solid #ccc;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            width: 33%; /* Adjust the width as needed */
-            
-        }
-
-            .testimonial-card img {
-                width: 100px;
-                height: 100px;
-                border-radius: 50%;
-                margin-bottom: 10px;
-            }
-
-            .testimonial-card h3 {
-                font-size: 20px;
-                margin-bottom: 5px;
-            }
-
-            .testimonial-card p {
-                margin-bottom: 10px;
-            }
-
-        /* Footer styling */
-        footer {
-            /* Your footer styles here */
-        }
-</style>
+</div>

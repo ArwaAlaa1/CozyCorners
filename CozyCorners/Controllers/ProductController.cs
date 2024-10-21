@@ -198,7 +198,6 @@ namespace CozyCorners.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        
         public async Task<IActionResult> ProductDetails(int id)
         {
             var product=await _productRepository.GetById(id);
@@ -206,6 +205,8 @@ namespace CozyCorners.Controllers
             return View(product);
         }
 
+        [AllowAnonymous]
+        [HttpGet]
         public async Task<ActionResult> SeeMore(int id)
         {
             var Products = await _productRepository.GetAllAsync();
@@ -216,6 +217,8 @@ namespace CozyCorners.Controllers
             return View(mappedProducts);
         }
 
+        [AllowAnonymous]
+        [HttpGet]
         public async Task<ActionResult> Shop()
         {
             var Products = await _productRepository.GetAllAsync();

@@ -70,7 +70,7 @@ namespace CozyCorners.Controllers
 
             if (id == null) return View("CatNotFound");
           
-                var basket = await _cartRepository.GetCustomerCartAsync(id);
+             var basket = await _cartRepository.GetCustomerCartAsync(id);
             if (basket is not null)
             {
                 var deliverymethod = await unitOfWork.Repository<DeliveryMethod>().GetAllAsync();

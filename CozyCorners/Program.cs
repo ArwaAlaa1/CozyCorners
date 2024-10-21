@@ -57,6 +57,7 @@ namespace CozyCorners
             builder.Services.AddScoped(typeof(IProductRepository), typeof(ProductRepository));
 
             builder.Services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
+            builder.Services.AddScoped(typeof(IOrderRepository), typeof(OrderRepository));
             builder.Services.AddScoped(typeof(IOrderServices), typeof(OrderServices));
             builder.Services.AddScoped<CategoryServices>();
             builder.Services.AddScoped<ProductServices>();

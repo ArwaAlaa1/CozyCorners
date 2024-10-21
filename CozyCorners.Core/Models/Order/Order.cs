@@ -33,7 +33,7 @@ namespace CozyCorners.Core.Models.Order
         public int? DeliveryMethodId { get; set; }
         public ICollection<OrderItem> Items { get; set; } = new HashSet<OrderItem>();
         public decimal SubTotal { get; set; }
-
+         
         public decimal Total()
         {
             return SubTotal+ DeliveryMethod.Cost;

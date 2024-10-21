@@ -113,9 +113,10 @@ namespace CozyCorners.Controllers
         {
             return View();
         }
-        public IActionResult About()
+        public async Task<ActionResult<List<Category>>> About()
         {
-            return View();
+            var categories =(List<Category>) await _unitOfWork.Repository<Category>().GetAllAsync();
+            return View(categories);
         }
         public IActionResult Shop()
         {

@@ -1,4 +1,5 @@
-﻿using CozyCorners.Core.Models.Identity;
+﻿using CozyCorners.Core;
+using CozyCorners.Core.Models.Identity;
 using CozyCorners.Core.Models.Order;
 using CozyCorners.Core.Repositories.Contract;
 using CozyCorners.Core.Services.Contract;
@@ -12,12 +13,16 @@ namespace CozyCorners.Controllers
 {
     public class OrderController : Controller
     {
+        private readonly IUnitOfWork unitOfWork;
+        private readonly IOrderRepository orderRepository;
         private readonly IOrderServices _orderServices;
         private readonly UserManager<AppUser> _userManager;
         private readonly ICartRepository cartRepository;
 
-        public OrderController(IOrderServices orderServices,UserManager<AppUser> userManager,ICartRepository cartRepository)
+        public OrderController(IUnitOfWork unitOfWork,IOrderRepository orderRepository,IOrderServices orderServices,UserManager<AppUser> userManager,ICartRepository cartRepository)
         {
+            this.unitOfWork = unitOfWork;
+            this.orderRepository = orderRepository;
             _orderServices = orderServices;
            _userManager = userManager;
             this.cartRepository = cartRepository;
@@ -87,12 +92,55 @@ namespace CozyCorners.Controllers
         {
             var service = new SessionService();
             Session session = service.Get(TempData["Session"].ToString());
-            if (session.PaymentStatus=="Paid")
+            if (session.PaymentStatus=="paid")
             {
                 return View("OrderSucess");
             }
             return View("OrderFailure");
         }
+
+        [HttpGet]
+        public async Task<ActionResult<Order>> GetOrdersForUser(string? id)
+        {
+            if (id == null) return View("NoOrders");
+            var useremail = await _userManager.FindByIdAsync(id);
+
+           var orders = await orderRepository.GetOrdersForUser(useremail.Email);
+
+            return View(orders);
+        }
+        [HttpGet]
+        public async Task<ActionResult<IReadOnlyList<Order>>> AllOrders()
+        {
+            var orders = await orderRepository.GetAllAsync();
+           
+            return View(orders);
+        }
+        [HttpGet]
+        public async Task<ActionResult<Order>> Details(int id)
+        {
+            var order = await orderRepository.GetOrderById(id);
+
+            return View(order);
+        }
+       
+        public async Task<ActionResult<Order>> Confirm(int id)
+        {
+            var order = await orderRepository.GetOrderById(id);
+            order.Status = OrderStatus.Processing;
+            orderRepository.update(order);
+            await unitOfWork.Complet();
+            return RedirectToAction(nameof(AllOrders));
+        }
         
+        public async Task<ActionResult<Order>> Cancel(int id)
+        {
+            var order = await orderRepository.GetOrderById(id);
+            order.Status = OrderStatus.Cancelled;
+            orderRepository.update(order);
+            await unitOfWork.Complet();
+            return RedirectToAction(nameof(AllOrders));
+        }
+
     }
 }

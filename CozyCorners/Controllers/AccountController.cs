@@ -155,7 +155,7 @@ namespace CozyCorners.Controllers
             await HttpContext.SignOutAsync("Cookies");
 			await _signInManager.SignOutAsync();
 			var x = User.Identity.IsAuthenticated;
-            return RedirectToAction(nameof(Signin));
+            return RedirectToAction("Index","Home");
         }
 
     }
