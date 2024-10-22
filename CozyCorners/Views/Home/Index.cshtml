@@ -64,7 +64,7 @@
         </ul>
     </div>
 </aside>
-
+@* 
 <div id="fh5co-services" class="fh5co-bg-section">
 	<div class="container">
 		<div class="row">
@@ -85,6 +85,7 @@
 				
 
 				}
+                <div class="clearfix"></div>
 			}
 
 		
@@ -93,7 +94,7 @@
 		</div>
 	</div>
 </div>
-
+ *@
 
 
 
@@ -132,7 +133,7 @@
                                                         <i class="fa-solid fa-cart-shopping"></i>
                                                     </button>
                                                 </form>
-                                                <form method="post" asp-action="ProductDetails" asp-controller="Product" class="add-to-cart-form">
+                                                <form method="get" asp-route-id="@Model.Products[i + j].Id" asp-action="ProductDetails" asp-controller="Product" class="add-to-cart-form">
                                                    
                                                     <input type="hidden" name="id" value="@Model.Products[i + j].Id" />
                                                     <button type="submit" class="icon" title="View Product">

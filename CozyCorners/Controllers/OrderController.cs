@@ -106,7 +106,7 @@ namespace CozyCorners.Controllers
             var useremail = await _userManager.FindByIdAsync(id);
 
            var orders = await orderRepository.GetOrdersForUser(useremail.Email);
-
+            if (orders.Count()==0) return View("NoOrders");
             return View(orders);
         }
         [HttpGet]

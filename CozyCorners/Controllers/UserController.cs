@@ -80,17 +80,7 @@ namespace CozyCorners.Controllers
 
                 if (addUser.PhotoFile is not null)
                 {
-                    //var PhotoName = $"{Guid.NewGuid()}{Path.GetExtension(addUser.PhotoFile.FileName)}";
-                    //string uploadDir = Path.Combine(_PhotoRootePath, "assets", "images", "Users");
-                    //if (!Directory.Exists(uploadDir))
-                    //{
-                    //    Directory.CreateDirectory(uploadDir);
-                    //}
-                    //var pathPhoto = Path.Combine(uploadDir, PhotoName);
-                    //using (var fileStream = new FileStream(pathPhoto, FileMode.Create))
-                    //{
-                    //    await addUser.PhotoFile.CopyToAsync(fileStream);
-                    //}
+                    
                     var PhotoName=await _userManager.GetPhotoPath(addUser, _environment);
                     // Create a new AppUser object
                     user = new AppUser()
@@ -168,12 +158,14 @@ namespace CozyCorners.Controllers
             var user = await _userManager.FindByIdAsync(id);
             return user;
         }
+
+        [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
             
             var mappesuser = _mapper.Map<AppUser, UserFormViewModel>(user);
-           
+           mappesuser.Roles= await _roleManager.GetAllRoles();
             return View(mappesuser);
 
         }
@@ -184,14 +176,6 @@ namespace CozyCorners.Controllers
 
             try
             {
-
-
-                //if (editUser.PhotoFile != null)
-                //{
-                //    editUser.Photo = DocumentSetting.UploadFile(editUser.PhotoFile, "user");
-                //}
-
-
 
                 var user = new AppUser()
                 {
