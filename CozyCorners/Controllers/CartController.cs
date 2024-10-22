@@ -59,8 +59,7 @@ namespace CozyCorners.Controllers
             cart.CartItems.Add(cartItem);
            
             await _cartRepository.UpdateBasketAsync(cart);
-            TempData["Message"] = $"This Item Added To Cart !";
-
+           
             return RedirectToAction("GetCart", "Cart", new { id = userId });
         }
 
