@@ -44,11 +44,11 @@ namespace CozyCorners.Controllers
             }
             else
             {
-                var domain = "https://localhost:44305/";
+              var domain = "https://localhost:7224/";
 
                 var options = new SessionCreateOptions
                 {
-                    SuccessUrl=domain+$"Order/OrderConfirm",
+                   SuccessUrl=domain+$"Order/OrderSucess",
                     CancelUrl=domain+ $"Account/Signin",
                     LineItems=new List<SessionLineItemOptions>(),
                     Mode="payment",
@@ -82,23 +82,21 @@ namespace CozyCorners.Controllers
                 //return View("OrderSucess");
             }
 
-
-
-            
-        }
+     }
 
         
-        public IActionResult OrderConfirm()
-        {
-            var service = new SessionService();
-            Session session = service.Get(TempData["Session"].ToString());
-            if (session.PaymentStatus=="paid")
-            {
-                return View("OrderSucess");
-            }
-            return View("OrderFailure");
-        }
-
+        [HttpGet]
+         public IActionResult OrderSucess()
+         {
+             var service = new SessionService();
+             Session session = service.Get(TempData["Session"].ToString());
+             if (session.PaymentStatus=="paid")
+             {
+                 return View("OrderSucess");
+             }
+             return View("OrderFailure");
+         }
+         
         [HttpGet]
         public async Task<ActionResult<Order>> GetOrdersForUser(string? id)
         {
